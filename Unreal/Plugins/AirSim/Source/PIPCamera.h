@@ -44,8 +44,11 @@ public:
     void setCameraTypeEnabled(ImageType type, bool enabled);
     bool getCameraTypeEnabled(ImageType type) const;
     void setupCameraFromSettings(const APIPCamera::CameraSetting& camera_setting, const NedTransform& ned_transform);
-    void setCameraPose(const FTransform& pose);
+    void setCameraPose(const msr::airlib::Pose& relative_pose);
     void setCameraFoV(float fov_degrees);
+    msr::airlib::CameraInfo getCameraInfo() const;
+    std::vector<float> getDistortionParams() const;
+    void setDistortionParam(const std::string& param_name, float value);
 
     msr::airlib::ProjectionMatrix getProjectionMatrix(const APIPCamera::ImageType image_type) const;
 
@@ -54,11 +57,11 @@ public:
     UTextureRenderTarget2D* getRenderTarget(const ImageType type, bool if_active);
 
     msr::airlib::Pose getPose() const;
-
-    UPROPERTY() UMaterialParameterCollection* distortion_param_collection_;
-    UPROPERTY() UMaterialParameterCollectionInstance* distortion_param_instance_;
     
 private: //members
+    UPROPERTY() UMaterialParameterCollection* distortion_param_collection_;
+    UPROPERTY() UMaterialParameterCollectionInstance* distortion_param_instance_;
+
     UPROPERTY() TArray<USceneCaptureComponent2D*> captures_;
     UPROPERTY() TArray<UTextureRenderTarget2D*> render_targets_;
 
