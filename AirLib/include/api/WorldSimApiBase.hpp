@@ -5,8 +5,7 @@
 #define air_WorldSimApiBase_hpp
 
 #include "common/CommonStructs.hpp"
-#include "common/AirSimSettings.hpp"
-
+#include "common/ImageCaptureBase.hpp"
 
 namespace msr { namespace airlib {
 
@@ -82,7 +81,7 @@ public:
 
     // Image APIs
     virtual CameraInfo getCameraInfo(const std::string& camera_name, const std::string& vehicle_name = "", bool external = false) const = 0;
-    virtual void setCameraPose(const std::string& camera_name, const msr::airlib::Pose& pose,
+    virtual void setCameraPose(const std::string& camera_name, const Pose& pose,
                                const std::string& vehicle_name = "", bool external = false) = 0;
     virtual void setCameraFoV(const std::string& camera_name, float fov_degrees,
                               const std::string& vehicle_name = "", bool external = false) = 0;
@@ -91,7 +90,7 @@ public:
     virtual std::vector<float> getDistortionParams(const std::string& camera_name, const std::string& vehicle_name = "",
                                                     bool external = false) const = 0;
 
-    virtual std::vector<ImageCaptureBase::ImageResponse> getImages(const std::vector<ImageCaptureBase::ImageRequest>& requests, 
+    virtual std::vector<ImageCaptureBase::ImageResponse> getImages(const std::vector<ImageCaptureBase::ImageRequest>& requests,
         const std::string& vehicle_name = "", bool external = false) const = 0;
     virtual std::vector<uint8_t> getImage(const std::string& camera_name, ImageCaptureBase::ImageType image_type,
         const std::string& vehicle_name = "", bool external = false) const = 0;

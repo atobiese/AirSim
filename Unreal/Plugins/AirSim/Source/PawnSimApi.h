@@ -33,7 +33,6 @@ public: //types
     typedef msr::airlib::real_T real_T;
     typedef msr::airlib::Utils Utils;
     typedef msr::airlib::AirSimSettings::VehicleSetting VehicleSetting;
-    typedef msr::airlib::ImageCaptureBase ImageCaptureBase;
 
     struct Params {
         APawn* pawn; 
