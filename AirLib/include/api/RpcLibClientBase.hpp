@@ -119,6 +119,7 @@ public:
     bool isRecording();
 
     void simSetWind(const Vector3r& wind) const;
+    vector<string> listVehicles();
 
     std::string getSettingsString() const;
 

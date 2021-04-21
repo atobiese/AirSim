@@ -383,6 +383,10 @@ RpcLibServerBase::RpcLibServerBase(ApiProvider* api_provider, const std::string&
         getWorldSimApi()->setWind(wind.to());
     });
 
+    pimpl_->server.bind("listVehicles", [&]() -> vector<string> {
+        return getWorldSimApi()->listVehicles();
+    });
+
     pimpl_->server.bind("getSettingsString", [&]() -> std::string {
         return getWorldSimApi()->getSettingsString();
     });
