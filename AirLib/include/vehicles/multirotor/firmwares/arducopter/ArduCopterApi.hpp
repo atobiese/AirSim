@@ -116,9 +116,8 @@ public: //TODO:MultirotorApiBase implementation
 
     virtual void setSimulatedGroundTruth(const Kinematics::State* kinematics, const Environment* environment) override
     {
-        Utils::log("Not Implemented: setSimulatedGroundTruth", Utils::kLogLevelInfo);
-        unused(kinematics);
-        unused(environment);
+        ground_truth_kinematics_state_ = kinematics;
+        ground_truth_environment_ = environment;
     }
 
     virtual bool setRCData(const RCData& rc_data) override
@@ -361,6 +360,16 @@ private:
                 << gps_output.gnss.velocity[2] << "]"
                 "}";
         }
+        else {
+            // If no GPS, then send the local NED position
+            const Vector3r& position = ground_truth_kinematics_state_->pose.position;
+            oss << ","
+                << "\"position\": ["
+                << std::setprecision(12)
+                << position[0] << ","
+                << position[1] << ","
+                << position[2] << "]";
+        }
 
 
         // Send RC channels to Ardupilot if present
@@ -516,6 +525,8 @@ private:
     const std::string& ip_;
     const SensorCollection* sensors_;
     const MultiRotorParams* vehicle_params_;
+    const Kinematics::State* ground_truth_kinematics_state_;
+    const Environment* ground_truth_environment_;
 
     MultirotorApiParams safety_params_;
 
